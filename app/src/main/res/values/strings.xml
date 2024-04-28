@@ -1,0 +1,48 @@
+<resources>
+    <string name="app_name">ProyectoPDM2024GT3Grupo1</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="title_categorias">Categorias</string>
+    <string name="title_carrito">Carrito</string>
+    <string name="title_perfil">Perfil</string>
+    <string name="textBuscar">Buscar</string>
+    <string name="textProducto">Camisa estilo Casual</string>
+    <string name="textPrecio">$43.95</string>
+
+    <!--    Para el login-->
+    <string name="login_txtEncabezado">Iniciar sesión</string>
+    <string name="login_txtcorreo">Correo electrónico</string>
+    <string name="login_txtcontrasena">Contraseña</string>
+    <string name="login_txtUsername">Username</string>
+    <string name="title_login">Login</string>
+    <string name="login_registrese">O registrese</string>
+    <!--    Para las categorias-->
+    <string name="Camisas_hombre">Camisas hombre</string>
+    <string name="Vestidos_mujer">Vestidos de mujer</string>
+    <string name="Camisas_niño">Camisas de niños</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!--PARA EL CARRITO-->
+    <string name="title_carrcompras">Carrito(1)</string>
+    <string name="title_direccion">Dirección de entrega</string>
+    <string name="nombre">Nombre: José Alfonso Galdámez</string>
+    <string name="telefono">Telefono: 6000-0000</string>
+    <string name="dirección">Direccion: Barrio El Centro</string>
+    <string name="departamento">Departamento: Santa Ana</string>
+    <string name="municipio">Municipio: Santa Ana</string>
+    <string name="total">Total</string>
+    <string name="proceder_1">Proceder(1)</string>
+<!--    Para el registrarse-->
+    <string name="LogNombres">Nombres</string>
+    <string name="LogApellidos">Apellidos</string>
+    <string name="LogContraseña">Contraseña</string>
+    <string name="LogRepitaContraseña">Repita Contraseña</string>
+    <string name="LogTelefono">Teléfono</string>
+    <string name="LogDepartamento">Departamento</string>
+    <string name="LogMunicipio">Municipio</string>
+    <string name="LogDireccion">Dirección</string>
+    <string name="login_txtRegistrarse">Registrarse</string>
+
+
+</resources>

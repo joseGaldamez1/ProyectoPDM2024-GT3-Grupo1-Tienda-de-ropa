@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CategoriasFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="98dp"
+        android:layout_height="match_parent"
+        android:background="@color/rosa"
+        tools:itemCount="3" />
+
+
+    <!--    Categoria 1-->
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="88dp"
+        android:layout_height="110dp"
+        android:layout_marginLeft="120dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/borde"
+        android:src="@drawable/camisahombre" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="120dp"
+        android:layout_marginTop="135dp"
+        android:fontFamily="sans-serif-medium"
+        android:text="@string/Camisas_hombre"
+        android:textSize="12sp" />
+
+
+    <!--    Categoria 2-->
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="88dp"
+        android:layout_height="110dp"
+        android:layout_marginLeft="260dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/borde"
+        android:src="@drawable/vestidomujer" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="260dp"
+        android:layout_marginTop="135dp"
+        android:fontFamily="sans-serif-medium"
+        android:text="@string/Vestidos_mujer"
+        android:textSize="12sp" />
+
+
+
+</FrameLayout>
