@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ModificarProductoActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbarModificarEdit"
+        android:layout_width="411dp"
+        android:layout_height="55dp"
+        android:background="@color/rosa"
+        app:layout_constraintBottom_toTopOf="@+id/image2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.025" />
+
+    <EditText
+        android:id="@+id/txtModId"
+        android:layout_width="225dp"
+        android:layout_height="53dp"
+        android:ems="10"
+        android:hint="@string/ingrese_el_id_de_producto"
+        android:inputType="number"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.12" />
+
+    <EditText
+        android:id="@+id/txtModNombre"
+        android:layout_width="355dp"
+        android:layout_height="53dp"
+        android:ems="10"
+        android:hint="@string/ingrese_el_nombre_del_producto"
+        android:inputType="text"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.49"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.446" />
+
+    <EditText
+        android:id="@+id/txtModCategorias"
+        android:layout_width="356dp"
+        android:layout_height="48dp"
+        android:entries="@array/Tallas"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.49"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtModNombre"
+        app:layout_constraintVertical_bias="0.045" />
+
+    <EditText
+        android:id="@+id/txtModPrecioCompra"
+        android:layout_width="109dp"
+        android:layout_height="48dp"
+        android:ems="10"
+        android:hint="@string/signoDolar"
+        android:inputType="numberDecimal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.205"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lblPrecioCompra"
+        app:layout_constraintVertical_bias="0.086" />
+
+    <EditText
+        android:id="@+id/txtModCantidadS"
+        android:layout_width="62dp"
+        android:layout_height="48dp"
+        android:ems="10"
+        android:hint="@string/signoNumero"
+        android:inputType="number"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.077"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtModCategorias"
+        app:layout_constraintVertical_bias="0.622" />
+
+    <EditText
+        android:id="@+id/txtModCantidadM"
+        android:layout_width="62dp"
+        android:layout_height="48dp"
+        android:ems="10"
+        android:hint="@string/signoNumero"
+        android:inputType="number"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.398"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtModCategorias"
+        app:layout_constraintVertical_bias="0.622" />
+
+    <EditText
+        android:id="@+id/txtModCantidadL"
+        android:layout_width="62dp"
+        android:layout_height="48dp"
+        android:ems="10"
+        android:hint="@string/signoNumero"
+        android:inputType="number"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.739"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtModCategorias"
+        app:layout_constraintVertical_bias="0.622" />
+
+    <TextView
+        android:id="@+id/lblPrecioCompra"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/precio_de_compra"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.205"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtModCategorias"
+        app:layout_constraintVertical_bias="0.091" />
+
+    <TextView
+        android:id="@+id/lblPrecioVenta"
+        android:layout_width="106dp"
+        android:layout_height="18dp"
+        android:text="@string/precio_de_venta"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.809"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtModCategorias"
+        app:layout_constraintVertical_bias="0.094" />
+
+    <EditText
+        android:id="@+id/txtModPrecioVenta"
+        android:layout_width="107dp"
+        android:layout_height="52dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="32dp"
+        android:ems="10"
+        android:hint="@string/signoDolar"
+        android:inputType="numberDecimal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.752"
+        app:layout_constraintStart_toEndOf="@+id/txtModPrecioCompra"
+        app:layout_constraintTop_toBottomOf="@+id/lblPrecioVenta"
+        app:layout_constraintVertical_bias="0.038" />
+
+    <TextView
+        android:id="@+id/textView27"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cantidad de tallas"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.09"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtModCategorias"
+        app:layout_constraintVertical_bias="0.452" />
+
+    <TextView
+        android:id="@+id/checkBoxS"
+        android:layout_width="39dp"
+        android:layout_height="31dp"
+        android:text="S"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.244"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView27"
+        app:layout_constraintVertical_bias="0.153" />
+
+    <TextView
+        android:id="@+id/checkBoxM"
+        android:layout_width="38dp"
+        android:layout_height="29dp"
+        android:text="M"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.56"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView27"
+        app:layout_constraintVertical_bias="0.151" />
+
+    <TextView
+        android:id="@+id/checkBoxL"
+        android:layout_width="43dp"
+        android:layout_height="33dp"
+        android:text="L"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.896"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView27"
+        app:layout_constraintVertical_bias="0.156" />
+
+    <EditText
+        android:id="@+id/txtModDescripcion"
+        android:layout_width="354dp"
+        android:layout_height="65dp"
+        android:ems="10"
+        android:inputType="textMultiLine"
+        android:hint="@string/descripcion_del_producto"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/checkBoxL" />
+
+
+    <ImageView
+        android:id="@+id/image2"
+        android:layout_width="85dp"
+        android:layout_height="111dp"
+        app:layout_constraintBottom_toTopOf="@+id/txtModNombre"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.466"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.91"
+        app:srcCompat="@drawable/borde" />
+
+    <ImageView
+        android:id="@+id/Modimage1"
+        android:layout_width="85dp"
+        android:layout_height="111dp"
+        app:layout_constraintBottom_toTopOf="@+id/txtModNombre"
+        app:layout_constraintEnd_toStartOf="@+id/Modimage3"
+        app:layout_constraintHorizontal_bias="0.214"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.91"
+        app:srcCompat="@drawable/borde" />
+
+    <ImageView
+        android:id="@+id/Modimage3"
+        android:layout_width="85dp"
+        android:layout_height="111dp"
+        android:layout_marginEnd="28dp"
+        app:layout_constraintBottom_toTopOf="@+id/txtModNombre"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.409"
+        app:layout_constraintStart_toEndOf="@+id/image2"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.91"
+        app:srcCompat="@drawable/borde" />
+
+    <Button
+        android:id="@+id/btnBuscarId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Buscar"
+        app:layout_constraintBottom_toTopOf="@+id/Modimage3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.19"
+        app:layout_constraintStart_toEndOf="@+id/txtModId"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.64" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

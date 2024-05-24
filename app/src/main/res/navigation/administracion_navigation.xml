@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/administracion_navigation"
+    app:startDestination="@+id/navigation_inventarioo">
+
+
+    <activity
+        android:id="@+id/navigation_inventarioo"
+        android:name="sv.edu.ues.proyectopdm2024gt3grupo1.InventarioActivity"
+        android:label="@string/title_home"
+        tools:layout="@layout/activity_inventario" />
+
+
+    <activity
+        android:id="@+id/navigation_categoriass"
+        android:name="sv.edu.ues.proyectopdm2024gt3grupo1.CategoriasActivity"
+        android:label="@string/title_dashboard"
+        tools:layout="@layout/activity_categorias" />
+
+    <activity
+        android:id="@+id/navigation_pedidoss"
+        android:name="sv.edu.ues.proyectopdm2024gt3grupo1.InsertarProductoActivity"
+        android:label="@string/title_notifications"
+        tools:layout="@layout/activity_insertar_producto" />
+
+    <activity
+        android:id="@+id/navigation_reportess"
+        android:name="sv.edu.ues.proyectopdm2024gt3grupo1.CategoriasActivity"
+        android:label="@string/title_notifications"
+        tools:layout="@layout/fragment_perfil" />
+</navigation>

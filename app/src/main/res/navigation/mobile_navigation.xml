@@ -26,6 +26,6 @@
     <fragment
         android:id="@+id/navigation_perfil"
         android:name="sv.edu.ues.proyectopdm2024gt3grupo1.PerfilFragment"
-        android:label="@string/title_notifications"
+        android:label="@string/title_perfil"
         tools:layout="@layout/fragment_perfil" />
 </navigation>

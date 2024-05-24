@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="120dp"
+    tools:context="CarritoFragment">
+
+    <androidx.cardview.widget.CardView
+        android:layout_marginTop="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="110dp" >
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="95dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/borde">
+
+
+            <TextView
+                android:id="@+id/spinnerCarritoCarr"
+                android:layout_width="84dp"
+                android:layout_height="27dp"
+                android:layout_marginStart="8dp"
+                android:entries="@array/Tallas"
+                android:text="Id:"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.007"
+                app:layout_constraintStart_toEndOf="@+id/txtVerImagenCarr"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/txtVerImagenCarr"
+                android:layout_width="60dp"
+                android:layout_height="82dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/txtNombreProductoCarr"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/borde" />
+
+
+            <TextView
+                android:id="@+id/txtNombreProductoCarr"
+                android:layout_width="275dp"
+                android:layout_height="22dp"
+                android:fontFamily="sans-serif-black"
+                android:text="TextView"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.625"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.082" />
+
+            <TextView
+                android:id="@+id/txtPrecioProductosCarr"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="260dp"
+                android:fontFamily="sans-serif-black"
+                android:text="TextView"
+                android:textColor="#FF0000"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.631"
+                app:layout_constraintStart_toEndOf="@+id/txtVerImagenCarr"
+                app:layout_constraintTop_toBottomOf="@+id/txtNombreProductoCarr"
+                app:layout_constraintVertical_bias="0.645" />
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Cant:"
+                app:layout_constraintBottom_toBottomOf="@+id/txtPrecioProductosCarr"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.451"
+                app:layout_constraintStart_toEndOf="@+id/txtPrecioProductosCarr"
+                app:layout_constraintTop_toBottomOf="@+id/txtNombreProductoCarr"
+                app:layout_constraintVertical_bias="1.0" />
+
+            <EditText
+                android:id="@+id/txtCantidadCarr"
+                android:layout_width="70dp"
+                android:layout_height="39dp"
+                android:ems="10"
+                android:inputType="number"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.254"
+                app:layout_constraintStart_toEndOf="@+id/textView4"
+                app:layout_constraintTop_toBottomOf="@+id/txtNombreProductoCarr"
+                app:layout_constraintVertical_bias="0.727" />
+
+            <ImageButton
+                android:id="@+id/btnEliminarCarrito"
+                android:layout_width="52dp"
+                android:layout_height="35dp"
+                android:background="@drawable/borderosa"
+                app:layout_constraintBottom_toTopOf="@+id/txtCantidadCarr"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.917"
+                app:layout_constraintStart_toEndOf="@+id/spinnerCarritoCarr"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.315"
+                app:srcCompat="@android:drawable/ic_menu_delete" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+
+
+</FrameLayout>

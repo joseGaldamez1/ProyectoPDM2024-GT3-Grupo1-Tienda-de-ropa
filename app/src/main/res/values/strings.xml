@@ -33,7 +33,7 @@
     <string name="municipio">Municipio: Santa Ana</string>
     <string name="total">Total</string>
     <string name="proceder_1">Proceder(1)</string>
-<!--    Para el registrarse-->
+    <!--    Para el registrarse-->
     <string name="LogNombres">Nombres</string>
     <string name="LogApellidos">Apellidos</string>
     <string name="LogContraseña">Contraseña</string>
@@ -43,6 +43,32 @@
     <string name="LogMunicipio">Municipio</string>
     <string name="LogDireccion">Dirección</string>
     <string name="login_txtRegistrarse">Registrarse</string>
+    <string name="categoria">Categoría:</string>
+    <string name="precio">Precio:</string>
+    <string name="cantidad">Cantidad:</string>
+    <string name="ingrese_el_id_de_producto">Ingrese el Id de producto</string>
+    <string name="ingrese_el_nombre_del_producto">Ingrese el nombre del producto</string>
+    <string name="precio_de_compra">Precio de compra</string>
+    <string name="precio_de_venta">Precio de venta</string>
+    <string name="signoNumero">#</string>
+    <string name="signoDolar">$</string>
+    <string name="negro">Negro</string>
+    <string name="descripcion_del_producto">Descripcion del producto</string>
+
+    <string-array name="Tallas">
+        <item>S</item>
+        <item>M</item>
+        <item>L</item>
+    </string-array>
+    <string name="title_activity_prueba_control">pruebaControlActivity</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
 
 
 </resources>
+
+
+

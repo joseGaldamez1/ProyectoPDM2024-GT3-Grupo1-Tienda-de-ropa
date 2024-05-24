@@ -1,157 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".CarritoFragment">
 
     <!-- TODO: Update blank fragment layout -->
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/RecycleCarrito"
+        android:layout_width="404dp"
+        android:layout_height="422dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.005" />
+
     <TextView
         android:id="@+id/textView6"
-        android:layout_width="116dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/bowlby_one"
-        android:text="@string/title_carrcompras"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
+        android:layout_gravity="bottom"
+        android:fontFamily="sans-serif-black"
+        android:text="Total a pagar     $"
         android:textColor="#000000"
-        android:textSize="16sp" />
-
-
-    <TextView
-        android:id="@+id/textView13"
-        android:layout_width="match_parent"
-        android:layout_height="128dp"
-        android:layout_marginTop="55dp"
-        android:background="@drawable/borde"
-        />
-
-    <ImageView
-        android:id="@+id/imageView5"
-        android:layout_width="83dp"
-        android:layout_height="105dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="65dp"
-        android:src="@drawable/camisahombre" />
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/txtTotalPagar"
+        app:layout_constraintHorizontal_bias="0.262"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/RecycleCarrito"
+        app:layout_constraintVertical_bias="0.058" />
 
     <TextView
-        android:id="@+id/textView14"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="125dp"
-        android:layout_marginTop="65dp"
+        android:id="@+id/txtTotalPagar"
+        android:layout_width="79dp"
+        android:layout_height="31dp"
+        android:layout_gravity="bottom"
         android:fontFamily="sans-serif-black"
-        android:text="@string/textProducto"
-        android:textColor="#000000" />
-
-    <TextView
-        android:id="@+id/textView15"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="125dp"
-        android:layout_marginTop="145dp"
-        android:fontFamily="sans-serif-black"
-        android:text="@string/textPrecio"
-        android:textColor="@color/rojo"
-        android:textSize="16sp" />
-
-    <TextView
-        android:id="@+id/textView16"
-        android:layout_width="match_parent"
-        android:layout_height="128dp"
-        android:layout_marginTop="200dp"
-        android:background="@drawable/borde"
-        />
-
-    <TextView
-        android:id="@+id/textView17"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="210dp"
-        android:fontFamily="sans-serif-black"
-        android:text="@string/title_direccion"
-        android:textColor="#000000" />
-
-    <TextView
-        android:id="@+id/textView18"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="230dp"
-        android:fontFamily="sans-serif-black"
-        android:text="@string/nombre"
-        android:textColor="#000000" />
-
-    <TextView
-        android:id="@+id/textView19"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="260dp"
-        android:layout_marginTop="230dp"
-        android:fontFamily="sans-serif-black"
-        android:text="@string/telefono"
-        android:textColor="#000000" />
-
-    <TextView
-        android:id="@+id/textView20"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="255dp"
-        android:fontFamily="sans-serif-black"
-        android:text="@string/dirección"
-        android:textColor="#000000" />
-
-    <TextView
-        android:id="@+id/textView21"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="260dp"
-        android:layout_marginTop="255dp"
-        android:fontFamily="sans-serif-black"
-        android:text="@string/municipio"
-        android:textColor="#000000" />
-
-    <TextView
-        android:id="@+id/textView22"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="275dp"
-        android:fontFamily="sans-serif-black"
-        android:text="@string/departamento"
-        android:textColor="#000000" />
-
-    <TextView
-        android:id="@+id/textView23"
-        android:layout_width="116dp"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/bowlby_one"
-        android:text="@string/total"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="560dp"
-        android:textColor="#000000"
-        android:textSize="16sp" />
-
-    <TextView
-        android:id="@+id/textView24"
-        android:layout_width="116dp"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/bowlby_one"
-        android:text="@string/textPrecio"
-        android:layout_marginStart="140dp"
-        android:layout_marginTop="560dp"
-        android:textColor="@color/rojo"
-        android:textSize="16sp" />
+        android:text="$0.00"
+        android:textColor="#FF0000"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/RecycleCarrito"
+        app:layout_constraintVertical_bias="0.056" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/btnCrearPedido"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="240dp"
-        android:layout_marginTop="550dp"
-        android:background="@color/black"
-        android:text="@string/proceder_1" />
+        android:text="Proceder"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.909"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/RecycleCarrito"
+        app:layout_constraintVertical_bias="0.037" />
 
-</FrameLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

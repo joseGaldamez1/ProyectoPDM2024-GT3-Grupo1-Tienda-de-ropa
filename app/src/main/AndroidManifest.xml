@@ -2,26 +2,77 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ProyectoPDM2024GT3Grupo1"
+        android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".RegistrarseActivity"
+            android:label="Registrarse"
+            android:exported="false" />
+        <activity
+            android:name=".LoginActivity"
+            android:exported="false" />
+        <activity
+            android:name=".DetallePedidosActivity"
+            android:exported="false" />
+        <activity
+            android:name=".PedidosActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ProductosPorCategoriaActivity"
+            android:exported="false" />
+        <activity
+            android:name=".DetalleProductoActivity"
+            android:exported="false"
+            android:label="Detalle del producto" />
+        <activity
+            android:name=".DetalleHomeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AdministrarCategoriasActivity"
+            android:exported="false"
+            android:label="Categorias" />
+        <activity
+            android:name=".ModificarProductoActivity"
+            android:exported="false"
+            android:label="Editar producto" />
+        <activity
+            android:name=".pruebaControlActivity"
+            android:exported="false"
+            android:label="Panel de administración"
+            android:theme="@style/Theme.ProyectoPDM2024GT3Grupo1" />
+        <activity
+            android:name=".InsertarProductoActivity"
+            android:exported="false"
+            android:label="Insertar Productos" />
+        <activity
+            android:name=".InventarioActivity"
+            android:exported="false"
+            android:label="Inventario" />
+        <activity
             android:name=".MainActivity"
-            android:exported="true"
-            android:label="@string/app_name">
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
 
 </manifest>
