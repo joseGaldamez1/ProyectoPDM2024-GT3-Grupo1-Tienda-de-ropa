@@ -1,21 +1,19 @@
 package sv.edu.ues.proyectopdm2024gt3grupo1.data
 
-import android.app.Activity
 import android.content.ContentValues
 import android.content.Context
-import android.content.Intent
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.util.Log
-import android.widget.Toast
 import sv.edu.ues.proyectopdm2024gt3grupo1.Autenticacion
-import sv.edu.ues.proyectopdm2024gt3grupo1.Carrito
 import sv.edu.ues.proyectopdm2024gt3grupo1.Categorias
 import sv.edu.ues.proyectopdm2024gt3grupo1.Departamentos
 import sv.edu.ues.proyectopdm2024gt3grupo1.Distritos
 import sv.edu.ues.proyectopdm2024gt3grupo1.Municipios
+import sv.edu.ues.proyectopdm2024gt3grupo1.PedidoDetalle
 import sv.edu.ues.proyectopdm2024gt3grupo1.Pedidos
+import sv.edu.ues.proyectopdm2024gt3grupo1.Perfil
 import sv.edu.ues.proyectopdm2024gt3grupo1.Productos
 
 class DataHelper(context: Context):
@@ -86,6 +84,10 @@ SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
         private const val TABLE_ROL = "rol"
         private const val COLUMN_ROL_ID = "idRol"
         private const val COLUMN_ROL_NOMBRE = "nombreRol"
+
+        //sesion
+        private const val TABLE_SESION = "sesion"
+        private const val COLUMN_SESION_NOMBRE = "nombre"
 
 
 
@@ -529,6 +531,11 @@ SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
                 ")")
         db.execSQL(CREATE_TABLE_ROL)
 
+        val CREATE_TABLE_SESION = ("CREATE TABLE $TABLE_SESION " +
+                       "($COLUMN_SESION_NOMBRE " +
+                        ")")
+        db.execSQL(CREATE_TABLE_SESION)
+
         val INSERTAR_ROL = listOf (
                 "INSERT INTO $TABLE_ROL ($COLUMN_ROL_ID, $COLUMN_ROL_NOMBRE) VALUES ('1', 'Administrador');",
                 "INSERT INTO $TABLE_ROL ($COLUMN_ROL_ID, $COLUMN_ROL_NOMBRE) VALUES ('2', 'Usuario');")
@@ -547,13 +554,13 @@ SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
         val CREATE_TABLE_USUARIO = (
                 "CREATE TABLE $TABLE_USUARIO (" +
                         " $COLUMN_USUARIO_ID INTEGER PRIMARY KEY AUTOINCREMENT," +
-                        " $COLUMN_USUARIO_NOMBRES TEXT," +
-                        " $COLUMN_USUARIO_APELLIDOS TEXT," +
-                        " $COLUMN_USUARIO_USUARIO TEXT," +
-                        " $COLUMN_USUARIO_CONTRASENA TEXT," +
-                        " $COLUMN_USUARIO_TELEFONO TEXT," +
-                        " $COLUMN_USUARIO_ID_DISTRITO INTEGER," +
-                        " $COLUMN_USUARIO_DIRECCION TEXT," +
+                        " $COLUMN_USUARIO_NOMBRES TEXT NOT NULL, " +
+                        " $COLUMN_USUARIO_APELLIDOS TEXT NOT NULL, " +
+                        " $COLUMN_USUARIO_USUARIO TEXT NOT NULL, " +
+                        " $COLUMN_USUARIO_CONTRASENA TEXT NOT NULL, " +
+                        " $COLUMN_USUARIO_TELEFONO TEXT NOT NULL, " +
+                        " $COLUMN_USUARIO_ID_DISTRITO INTEGER NOT NULL," +
+                        " $COLUMN_USUARIO_DIRECCION TEXT NOT NULL," +
                         " $COLUMN_USUARIO_ROL INTEGER," +
                         " FOREIGN KEY($COLUMN_USUARIO_ID_DISTRITO) REFERENCES $TABLE_DISTRITOS($COLUMN_DISTRITO_ID), " +
                         " FOREIGN KEY($COLUMN_USUARIO_ROL) REFERENCES $TABLE_ROL($COLUMN_ROL_ID)" +
@@ -617,6 +624,7 @@ SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
         db.execSQL("DROP TABLE IF EXISTS $TABLE_DISTRITOS")
         db.execSQL("DROP TABLE IF EXISTS $TABLE_USUARIO")
         db.execSQL("DROP TABLE IF EXISTS $TABLE_ROL")
+        db.execSQL("DROP TABLE IF EXISTS $TABLE_SESION")
         db.execSQL("DROP TRIGGER IF EXISTS $CREATE_TRIGGER_EXISTENCIAS")
         onCreate(db)
     }
@@ -977,10 +985,11 @@ SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
         return idResultado
     }
 
-    fun VerPedidos(usuario: Int): ArrayList<Pedidos>{
+    fun VerPedidos(): ArrayList<Pedidos>{
         val query: String = ("SELECT " +
         "c.$COLUMN_CARRITO_NUMERO_PEDIDO, " +
-        "c.$COLUMN_CARRITO_ID_USUARIO, " +
+        "u.$COLUMN_USUARIO_NOMBRES, " +
+        "u.$COLUMN_USUARIO_APELLIDOS, " +
         "p.$COLUMN_PRODUCTOS_ID, " +
         "p.$COLUMN_PRODUCTOS_NOMBRE, " +
         "c.$COLUMN_CARRITO_TALLA, " +
@@ -988,8 +997,9 @@ SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
         "p.$COLUMN_PRODUCTOS_PRECIO_VENTA, " +
         "p.$COLUMN_PRODUCTOS_IMAGEN1, " +
         "c.$COLUMN_CARRITO_ESTADO " +
-        " FROM $TABLE_CARRITO c JOIN $TABLE_PRODUCTOS p ON c.$COLUMN_CARRITO_ID_PRODUCTO = p.$COLUMN_PRODUCTOS_ID" +
-         " WHERE $COLUMN_CARRITO_ID_USUARIO = '$usuario' AND $COLUMN_CARRITO_ESTADO='Pendiente'")
+        " FROM $TABLE_CARRITO c JOIN $TABLE_PRODUCTOS p ON c.$COLUMN_CARRITO_ID_PRODUCTO = p.$COLUMN_PRODUCTOS_ID " +
+        "JOIN $TABLE_USUARIO u ON u.$COLUMN_USUARIO_ID = c.$COLUMN_CARRITO_ID_USUARIO " +
+         "WHERE $COLUMN_CARRITO_ESTADO='Pendiente'")
 
 
         val db = readableDatabase
@@ -998,18 +1008,20 @@ SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
         cursor = db.rawQuery(query, null)
         while (cursor.moveToNext()) {
             val numeroPedido = cursor.getString(0).toInt()
-            val id_User = cursor.getString(1).toInt()
-            val idProd = cursor.getString(2).toInt()
-            val nombreProd = cursor.getString(3)
-            val talla = cursor.getString(4)
-            val cantidad = cursor.getString(5).toInt()
-            val precioventa = cursor.getString(6).toDouble()
-            val imagen = cursor.getString(7)
-            val estado = cursor.getString(8)
+            val id_User = cursor.getString(1)
+            val apellidos = cursor.getString(2)
+            val idProd = cursor.getString(3).toInt()
+            val nombreProd = cursor.getString(4)
+            val talla = cursor.getString(5)
+            val cantidad = cursor.getString(6).toInt()
+            val precioventa = cursor.getString(7).toDouble()
+            val imagen = cursor.getString(8)
+            val estado = cursor.getString(9)
 
             val pedido = Pedidos(
                 numeroPedido,
                 id_User,
+                apellidos,
                 idProd,
                 nombreProd,
                 talla,
@@ -1032,6 +1044,16 @@ SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
         valores.put(COLUMN_CARRITO_NUMERO_PEDIDO, numero)
         valores.put(COLUMN_CARRITO_ESTADO, estado)
         val idResultado = db.update(TABLE_CARRITO, valores,"$COLUMN_CARRITO_ID_USUARIO = ? AND $COLUMN_CARRITO_ESTADO = ?", arrayOf(usuario.toString(),  "Carrito"))
+        db.close()
+        return idResultado
+    }
+
+    fun FinalizarPedido(estado: String, usuario: Int, numeroPedido: Int): Int {
+        val db = writableDatabase
+        val valores = ContentValues()
+        val donde = arrayOf(usuario.toString(), numeroPedido.toString(), "Pendiente")
+        valores.put(COLUMN_CARRITO_ESTADO, estado)
+        val idResultado = db.update(TABLE_CARRITO, valores,"$COLUMN_CARRITO_ID_USUARIO = ? AND $COLUMN_CARRITO_NUMERO_PEDIDO = ? AND $COLUMN_CARRITO_ESTADO = ?", donde)
         db.close()
         return idResultado
     }
@@ -1108,8 +1130,8 @@ SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
         val db = writableDatabase
         val valores = ContentValues()
         valores.put(COLUMN_USUARIO_NOMBRES, nombres)
-        valores.put(COLUMN_USUARIO_NOMBRES, apellidos)
-        valores.put(COLUMN_USUARIO_APELLIDOS, usuario)
+        valores.put(COLUMN_USUARIO_APELLIDOS, apellidos)
+        valores.put(COLUMN_USUARIO_USUARIO, usuario)
         valores.put(COLUMN_USUARIO_CONTRASENA, contrasena)
         valores.put(COLUMN_USUARIO_TELEFONO, telefono)
         valores.put(COLUMN_USUARIO_ID_DISTRITO, distrito)
@@ -1121,7 +1143,7 @@ SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
     }
 
     fun ObtenerIdDistrito(nombre: String): Int {
-        val query = "SELECT $COLUMN_ROL_ID FROM $TABLE_ROL WHERE $COLUMN_ROL_NOMBRE = ?"
+        val query = "SELECT $COLUMN_DISTRITO_ID FROM $TABLE_DISTRITOS WHERE $COLUMN_DISTRITO_NOMBRE = ?"
         val db = readableDatabase
         val cursor: Cursor
         var idDistrito = -1
@@ -1157,6 +1179,128 @@ SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
             db.close()
             return Datos
     }
+
+    fun ConsultarUsuario(id: String): ArrayList<Perfil> {
+        val query = (
+                "SELECT us.$COLUMN_USUARIO_NOMBRES, us.$COLUMN_USUARIO_APELLIDOS, us.$COLUMN_USUARIO_USUARIO, " +
+                        "us.$COLUMN_USUARIO_CONTRASENA, us.$COLUMN_USUARIO_TELEFONO, us.$COLUMN_USUARIO_DIRECCION, " +
+                        "di.$COLUMN_DISTRITO_NOMBRE, mu.$COLUMN_MUNICIPIO_NOMBRE, de.$COLUMN_DEPARTAMENTO_NOMBRE, ro.$COLUMN_ROL_NOMBRE " +
+                        "FROM $TABLE_USUARIO us " +
+                        "JOIN $TABLE_DISTRITOS di ON us.$COLUMN_USUARIO_ID_DISTRITO = di.$COLUMN_DISTRITO_ID " +
+                        "JOIN $TABLE_MUNICIPIOS mu ON di.$COLUMN_DISTRITO_ID_MUNICIPIO = mu.$COLUMN_MUNICIPIO_ID " +
+                        "JOIN $TABLE_DEPARTAMENTOS de ON de.$COLUMN_DEPARTAMENTO_ID = mu.$COLUMN_MUNICIPIO_ID_DEPARTAMENTO " +
+                        "JOIN $TABLE_ROL ro ON us.$COLUMN_USUARIO_ROL = ro.$COLUMN_ROL_ID " +
+                        "WHERE $COLUMN_USUARIO_ID= '$id'")
+        val db = readableDatabase
+        Log.i("data", query.toString())
+        val cursor: Cursor
+        var Usuario = ArrayList<Perfil>()
+        cursor = db.rawQuery(query, null,)
+        if (cursor.count == 1) {
+            if (cursor.moveToFirst()) {
+                val nombres = cursor.getString(0)
+                val apellidos = cursor.getString(1)
+                val usuario = cursor.getString(2)
+                val contrasena = cursor.getString(3)
+                val telefono = cursor.getString(4)
+                val direccion = cursor.getString(5)
+                val distrito = cursor.getString(6)
+                val municipio = cursor.getString(7)
+                val departamento = cursor.getString(8)
+                val nombreRol = cursor.getString(9)
+
+                val user = Perfil(
+                    nombres,
+                    apellidos,
+                    usuario,
+                    contrasena,
+                    telefono,
+                    direccion,
+                    distrito,
+                    municipio,
+                    departamento,
+                    nombreRol
+                )
+                Usuario.add(user)
+            }
+        } else {
+            println("No encontrado")
+        }
+        cursor.close()
+        db.close()
+        return Usuario
+    }
+
+    fun ObtenerIdUsuario(nombre: String): Int {
+        val query = "SELECT $COLUMN_USUARIO_ID FROM $TABLE_USUARIO WHERE $COLUMN_USUARIO_USUARIO = ?"
+        val db = readableDatabase
+        val cursor: Cursor
+        var idUsuario = -1
+        cursor = db.rawQuery(query, arrayOf(nombre))
+        Log.i("data", query.toString())
+        if (cursor.count == 1) {
+            cursor.moveToFirst()
+            idUsuario = cursor.getInt(0)
+        } else {
+            println("No encontrado")
+        }
+        cursor.close()
+        db.close()
+        return idUsuario
+    }
+
+    fun obtenerUsuario(context: Context): String? {
+        val nomUser = context.getSharedPreferences("MyAppPrefs", Context.MODE_PRIVATE)
+        return nomUser.getString("USERNAME_KEY", null)
+    }
+
+    fun verDetallePedido(numero: String): ArrayList<PedidoDetalle> {
+        val query: String = ("SELECT p.$COLUMN_PRODUCTOS_NOMBRE, c.$COLUMN_CARRITO_CANTIDAD, p.$COLUMN_PRODUCTOS_PRECIO_VENTA, p.$COLUMN_PRODUCTOS_IMAGEN1, c.$COLUMN_CARRITO_ID_USUARIO, c.$COLUMN_CARRITO_TALLA "+
+                "FROM $TABLE_PRODUCTOS p JOIN " +
+                "$TABLE_CARRITO c ON c.$COLUMN_CARRITO_ID_PRODUCTO = p.$COLUMN_PRODUCTOS_ID " +
+                " WHERE c.$COLUMN_CARRITO_NUMERO_PEDIDO = '$numero'")
+        val db = readableDatabase
+        val cursor: Cursor
+        val DatosPedido = ArrayList<PedidoDetalle>()
+        cursor = db.rawQuery(query, null)
+        while (cursor.moveToNext()) {
+            val nombre = cursor.getString(0)
+            val cantidad = cursor.getInt(1)
+            val precio = cursor.getDouble(2)
+            val imagen = cursor.getString(3)
+            val idCliente = cursor.getString(4)
+            val talla = cursor.getString(5)
+            val pedido = PedidoDetalle(nombre, cantidad, precio, imagen, idCliente, talla)
+            DatosPedido.add(pedido)
+        }
+        cursor.close()
+        db.close()
+        return DatosPedido
+    }
+
+    fun AddSesion(
+        nombre:String,
+    ): Long {
+        val db = writableDatabase
+        val valores = ContentValues()
+        valores.put(COLUMN_SESION_NOMBRE, nombre)
+        val idResultado = db.insert(TABLE_SESION, null, valores)
+        return idResultado
+        db.close()
+    }
+
+    fun EliminarSesion(estado: String): Int {
+        val db = writableDatabase
+        var idResultado = -1
+            val parametros = arrayOf(estado)
+            idResultado = db.delete(TABLE_SESION, "$COLUMN_SESION_NOMBRE = ?", parametros)
+            db.close()
+
+        return idResultado
+    }
+
+
+
 
 
 

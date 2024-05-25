@@ -3,16 +3,13 @@ package sv.edu.ues.proyectopdm2024gt3grupo1
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Button
 import android.widget.ImageButton
 import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import sv.edu.ues.proyectopdm2024gt3grupo1.data.DataHelper
 
 class InventarioActivity : AppCompatActivity() {

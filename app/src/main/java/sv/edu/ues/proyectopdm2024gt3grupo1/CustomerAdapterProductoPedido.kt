@@ -8,19 +8,21 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 
-class CustomerAdapterProductoPedido(nombre: ArrayList<String>, cantidad: ArrayList<Int>, precio: ArrayList<Double>, imagen: ArrayList<String>)
+class CustomerAdapterProductoPedido(nombre: ArrayList<String>, cantidad: ArrayList<Int>, precio: ArrayList<Double>, imagen: ArrayList<String> , talla: ArrayList<String>)
     : RecyclerView.Adapter<CustomerAdapterProductoPedido.ViewHolder>()
 {
     private lateinit var NombreRecuperado: ArrayList<String>
     private lateinit var CantidadRecuperado: ArrayList<Int>
     private lateinit var PrecioRecuperado: ArrayList<Double>
     private lateinit var ImagenRecuperado: ArrayList<String>
+    private lateinit var TallaRecuperado: ArrayList<String>
 
     init {
         this.NombreRecuperado = nombre
         this.CantidadRecuperado = cantidad
         this.PrecioRecuperado = precio
         this.ImagenRecuperado = imagen
+        this.TallaRecuperado = talla
     }
 
     public class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -28,6 +30,7 @@ class CustomerAdapterProductoPedido(nombre: ArrayList<String>, cantidad: ArrayLi
         var itemCantidad: TextView = itemView.findViewById(R.id.txtCantidadPedido)
         var itemPrecio: TextView = itemView.findViewById(R.id.txtPrecioPedido)
         var itemImagen: ImageView = itemView.findViewById(R.id.txtImagenPedido)
+        var itemTalla: TextView = itemView.findViewById(R.id.txtTallaPedido)
     }
 
     override fun onCreateViewHolder(
@@ -52,6 +55,7 @@ class CustomerAdapterProductoPedido(nombre: ArrayList<String>, cantidad: ArrayLi
             .load(imageUrl)
             .error("https://www.shutterstock.com/image-vector/default-ui-image-placeholder-wireframes-600nw-1037719192.jpg")
             .into(holder.itemImagen)
+        holder.itemTalla.text = TallaRecuperado[position]
     }
 
 }

@@ -8,15 +8,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.EditText
-import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
-import androidx.appcompat.widget.AppCompatImageButton
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import sv.edu.ues.proyectopdm2024gt3grupo1.data.DataHelper
+import java.text.NumberFormat
+import java.util.Locale
 
 
 class CarritoFragment : Fragment() {
@@ -60,6 +58,7 @@ class CarritoFragment : Fragment() {
         LlenarCarrito()
         //boton para crear pedido
         val btnPedido: Button = view.findViewById(R.id.btnCrearPedido)
+        val usuario= obtenerUsuario(requireContext())
 
         btnPedido.setOnClickListener(){
             numeroPedido++
@@ -67,9 +66,15 @@ class CarritoFragment : Fragment() {
                 putInt("numeroPedido", numeroPedido)
                 apply()
             }
-            Toast.makeText(requireContext(), "Pedido enviado con exito", Toast.LENGTH_SHORT).show()
-            dbHelper.ActualizarPedido(numeroPedido,"Pendiente", 1)
-            LlenarCarrito()
+
+            val resultado = dbHelper.ActualizarPedido(numeroPedido,"Pendiente", usuario.toString().toInt())
+            if(resultado > 1){
+                Toast.makeText(requireContext(), "Pedido enviado con exito", Toast.LENGTH_SHORT).show()
+                LlenarCarrito()
+            }else{
+                Toast.makeText(requireContext(), "Lo siento, tenemos un problema con su pedido", Toast.LENGTH_SHORT).show()
+            }
+
         }
 
         //total a pagar
@@ -80,9 +85,9 @@ class CarritoFragment : Fragment() {
     }
 
     private fun LlenarCarrito() {
-        val usuario = "1"
+        val usuario = obtenerUsuario(requireContext())
         val estado = "Carrito"
-        val ListaProductos = dbHelper.verCarrito(usuario, estado)
+        val ListaProductos = dbHelper.verCarrito(usuario.toString(), estado)
 
         imagenRecuperado.clear()
         nombreRecuperado.clear()
@@ -101,7 +106,7 @@ class CarritoFragment : Fragment() {
 
             // Agrega los valores recuperados a las listas correspondientes
             nombreRecuperado.add(nombreProd)
-            precioRecuperado.add(precio)
+            precioRecuperado.add(NumberFormat.getCurrencyInstance(Locale.US).format(precio.toString().toDouble()))
             imagenRecuperado.add(imagen)
             cantidadRecuperado.add(cantidad)
             tallaRecuperado.add(talla)
@@ -115,9 +120,9 @@ class CarritoFragment : Fragment() {
     }
 
     private fun calcularTotalPagar() {
-        val usuario = "1"
+        val usuario = obtenerUsuario(requireContext())
         val estado = "Carrito"
-        val ListaProductos = dbHelper.verCarrito(usuario, estado)
+        val ListaProductos = dbHelper.verCarrito(usuario.toString(), estado)
         var total = 0.0
 
         for (prod in ListaProductos) {
@@ -127,8 +132,13 @@ class CarritoFragment : Fragment() {
 
             total += precio * cantidad
         }
-        Toast.makeText(requireContext(), "El total es: "+total, Toast.LENGTH_SHORT).show()
-        totalPagar.setText(total.toString())
+        totalPagar.setText(NumberFormat.getCurrencyInstance(Locale.US).format(total))
+    }
+
+
+    fun obtenerUsuario(context: Context): String? {
+        val nomUser = context.getSharedPreferences("MyAppPrefs", Context.MODE_PRIVATE)
+        return nomUser.getString("USERNAME_KEY", null)
     }
 
 

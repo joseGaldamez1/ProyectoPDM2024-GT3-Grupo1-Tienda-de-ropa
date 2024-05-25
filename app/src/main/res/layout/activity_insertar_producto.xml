@@ -11,7 +11,6 @@
         android:layout_width="411dp"
         android:layout_height="55dp"
         android:background="@color/rosa"
-        app:layout_constraintBottom_toTopOf="@+id/image2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -58,17 +57,17 @@
 
     <EditText
         android:id="@+id/txtInsertPrecioCompra"
-        android:layout_width="109dp"
+        android:layout_width="149dp"
         android:layout_height="48dp"
         android:ems="10"
         android:hint="@string/signoDolar"
         android:inputType="numberDecimal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/txtInsertCantidadS"
+        app:layout_constraintHorizontal_bias="0.115"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/lblPrecioCompra"
-        app:layout_constraintVertical_bias="0.05" />
+        app:layout_constraintVertical_bias="0.069" />
 
     <EditText
         android:id="@+id/txtInsertCantidadS"
@@ -79,7 +78,7 @@
         android:inputType="number"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.028"
+        app:layout_constraintHorizontal_bias="0.091"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtSpinerCategorias"
         app:layout_constraintVertical_bias="0.576" />
@@ -93,10 +92,10 @@
         android:inputType="number"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.37"
+        app:layout_constraintHorizontal_bias="0.423"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtSpinerCategorias"
-        app:layout_constraintVertical_bias="0.576" />
+        app:layout_constraintVertical_bias="0.579" />
 
     <EditText
         android:id="@+id/txtInsertCantidadL"
@@ -119,7 +118,7 @@
         android:text="@string/precio_de_compra"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.232"
+        app:layout_constraintHorizontal_bias="0.099"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtSpinerCategorias"
         app:layout_constraintVertical_bias="0.051" />
@@ -131,15 +130,15 @@
         android:text="@string/precio_de_venta"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.859"
+        app:layout_constraintHorizontal_bias="0.773"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtSpinerCategorias"
-        app:layout_constraintVertical_bias="0.05" />
+        app:layout_constraintVertical_bias="0.054" />
 
     <EditText
         android:id="@+id/txtInsertPrecioVenta"
-        android:layout_width="107dp"
-        android:layout_height="52dp"
+        android:layout_width="136dp"
+        android:layout_height="51dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="32dp"
         android:ems="10"
@@ -159,10 +158,10 @@
         android:text="Cantidad tallas"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.05"
+        app:layout_constraintHorizontal_bias="0.116"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/lblPrecioCompra"
-        app:layout_constraintVertical_bias="0.318" />
+        app:layout_constraintVertical_bias="0.342" />
 
     <TextView
         android:id="@+id/checkBoxS"
@@ -172,10 +171,10 @@
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.2"
+        app:layout_constraintHorizontal_bias="0.238"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView27"
-        app:layout_constraintVertical_bias="0.193" />
+        app:layout_constraintVertical_bias="0.202" />
 
     <TextView
         android:id="@+id/checkBoxM"
@@ -185,10 +184,10 @@
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.533"
+        app:layout_constraintHorizontal_bias="0.556"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView27"
-        app:layout_constraintVertical_bias="0.19" />
+        app:layout_constraintVertical_bias="0.197" />
 
     <TextView
         android:id="@+id/checkBoxL"
@@ -217,38 +216,12 @@
 
 
     <ImageView
-        android:id="@+id/image2"
-        android:layout_width="85dp"
-        android:layout_height="111dp"
-        app:layout_constraintBottom_toTopOf="@+id/txtInsertId"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.475"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.781"
-        app:srcCompat="@drawable/borde" />
-
-    <ImageView
         android:id="@+id/image1"
-        android:layout_width="85dp"
-        android:layout_height="111dp"
-        app:layout_constraintBottom_toTopOf="@+id/txtInsertId"
-        app:layout_constraintEnd_toStartOf="@+id/image3"
-        app:layout_constraintHorizontal_bias="0.254"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.781"
-        app:srcCompat="@drawable/borde" />
-
-    <ImageView
-        android:id="@+id/image3"
-        android:layout_width="85dp"
-        android:layout_height="111dp"
-        android:layout_marginEnd="28dp"
+        android:layout_width="122dp"
+        android:layout_height="129dp"
         app:layout_constraintBottom_toTopOf="@+id/txtInsertId"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.379"
-        app:layout_constraintStart_toEndOf="@+id/image2"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.781"
         app:srcCompat="@drawable/borde" />

@@ -1,18 +1,15 @@
 package sv.edu.ues.proyectopdm2024gt3grupo1
 
 
-import android.annotation.SuppressLint
-import android.content.Intent
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
 import android.widget.Button
 import android.widget.EditText
-import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.TextView
@@ -20,6 +17,8 @@ import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import com.bumptech.glide.Glide
 import sv.edu.ues.proyectopdm2024gt3grupo1.data.DataHelper
+import java.text.NumberFormat
+import java.util.Locale
 
 
 class DetalleProductoActivity : AppCompatActivity() {
@@ -111,9 +110,10 @@ class DetalleProductoActivity : AppCompatActivity() {
         if(nombreProd.isEmpty()){
             Toast.makeText(null, "El codigo esta vacío", Toast.LENGTH_SHORT).show()
         }else{
-            val productoBuscado:ArrayList<Productos> =dbHelper.ConsultarProductoNombre(nombreProd)
+            val productoBuscado:ArrayList<Productos>
+            productoBuscado=dbHelper.ConsultarProductoNombre(nombreProd)
                 nombre.setText(productoBuscado[0].nombre)
-                precio.setText("$ "+ productoBuscado[0].precioVenta.toString())
+                precio.setText(NumberFormat.getCurrencyInstance(Locale.US).format(productoBuscado[0].precioVenta))
                 descripcion.setText(productoBuscado[0].descripcion)
                 Glide.with(this)
                     .load(productoBuscado[0].imagen1)
@@ -140,54 +140,32 @@ class DetalleProductoActivity : AppCompatActivity() {
             if (txtCantidad.text.toString().toInt() > tallaS.toInt()) {
                 Toast.makeText(this, "No hay suficientes existencias", Toast.LENGTH_SHORT).show()
             } else {
-                val idResultado = dbHelper.AddCarrito(1, res.toInt(), Produ, txtCantidad.text.toString().toInt())
-                if (idResultado == -1L) {
-                    Toast.makeText(this, "Hubo un error", Toast.LENGTH_SHORT).show()
-                } else {
-                    Toast.makeText(this, "Agregado al carrito!!", Toast.LENGTH_SHORT).show()
-                    txtCantidad.setText("")
-                }
+                val usuario = obtenerUsuario(this)
+                val idResultado = dbHelper.AddCarrito(usuario.toString().toInt(), res.toInt(), Produ, txtCantidad.text.toString().toInt())
+                Toast.makeText(this, "Agregado al carrito!!", Toast.LENGTH_SHORT).show()
+                txtCantidad.setText("")
             }
         } else if (Produ == "M") {
             if (txtCantidad.text.toString().toInt() > tallaM.toInt()) {
                 Toast.makeText(this, "No hay suficientes existencias", Toast.LENGTH_SHORT).show()
             } else {
-                val idResultado =
-                    dbHelper.AddCarrito(1, res.toInt(), Produ, txtCantidad.text.toString().toInt())
-                if (idResultado == -1L) {
-                    Toast.makeText(this, "Hubo un error", Toast.LENGTH_SHORT).show()
-                } else {
-                    Toast.makeText(this, "Agregado al carrito!!", Toast.LENGTH_SHORT).show()
-                    txtCantidad.setText("")
-                }
+                val usuario = obtenerUsuario(this)
+                val idResultado = dbHelper.AddCarrito(usuario.toString().toInt(), res.toInt(), Produ, txtCantidad.text.toString().toInt())
+                Toast.makeText(this, "Agregado al carrito!!", Toast.LENGTH_SHORT).show()
+                txtCantidad.setText("")
             }
         } else if (Produ == "L") {
             if (txtCantidad.text.toString().toInt() > tallaL.toInt()) {
                 Toast.makeText(this, "No hay suficientes existencias", Toast.LENGTH_SHORT).show()
             } else {
-                val idResultado =
-                    dbHelper.AddCarrito(1, res.toInt(), Produ, txtCantidad.text.toString().toInt())
-                if (idResultado == -1L) {
-                    Toast.makeText(this, "Hubo un error", Toast.LENGTH_SHORT).show()
-                } else {
+                val usuario = obtenerUsuario(this)
+                val idResultado = dbHelper.AddCarrito(usuario.toString().toInt(), res.toInt(), Produ, txtCantidad.text.toString().toInt())
                     Toast.makeText(this, "Agregado al carrito!!", Toast.LENGTH_SHORT).show()
                     txtCantidad.setText("")
                 }
             }
-        } else {
-            Toast.makeText(this, "Talla no válida", Toast.LENGTH_SHORT).show()
         }
 
-
-        //fin prueba
-       /*val idResultado = dbHelper.AddCarrito( 1, res.toInt(), Produ, txtCantidad.text.toString().toInt())
-        if(idResultado==-1.toLong()){
-            Toast.makeText(this, "Hubo un error", Toast.LENGTH_SHORT).show()
-        }else{
-            Toast.makeText(this, "Agregado al carrito!!", Toast.LENGTH_SHORT).show()
-            txtCantidad.setText("")
-        }*/
-    }
 
     fun Existencias() {
         val exis: TextView = findViewById(R.id.txtDisponibilidadTallas)
@@ -216,6 +194,11 @@ class DetalleProductoActivity : AppCompatActivity() {
             "L" -> exis.text = tallaL
             else -> exis.text = "Talla no disponible"
         }
+    }
+
+    fun obtenerUsuario(context: Context): String? {
+        val nomUser = context.getSharedPreferences("MyAppPrefs", Context.MODE_PRIVATE)
+        return nomUser.getString("USERNAME_KEY", null)
     }
 
 

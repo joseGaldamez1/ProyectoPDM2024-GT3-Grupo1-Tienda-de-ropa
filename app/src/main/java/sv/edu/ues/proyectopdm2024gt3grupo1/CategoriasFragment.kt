@@ -6,8 +6,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import sv.edu.ues.proyectopdm2024gt3grupo1.data.DataHelper
 
@@ -45,17 +45,22 @@ class CategoriasFragment : Fragment() {
     private fun LlenarDatosEnVista() {
         CatRecuperado.clear()
         val ListaCateg = dbHelper.verCategorias()
+
+        if (ListaCateg.isEmpty()) {
+            Toast.makeText(requireContext(), "No hay categorias", Toast.LENGTH_SHORT).show()
+        } else {
             for (categorias in ListaCateg) {
                 //Accede a los atributos o metodos de cada objeto productos
 
                 CatRecuperado.add(categorias.nombre)
                 adapter = CustomerAdapterItemCategorias(CatRecuperado)
-                recyclerView.layoutManager = GridLayoutManager(requireContext(),2)
+                recyclerView.layoutManager = GridLayoutManager(requireContext(), 2)
                 recyclerView.adapter = adapter
 
             }
-        adapter.notifyDataSetChanged()
+            adapter.notifyDataSetChanged()
         }
+    }
 
 
 

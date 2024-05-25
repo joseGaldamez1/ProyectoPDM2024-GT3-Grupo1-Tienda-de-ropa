@@ -23,19 +23,16 @@ class pruebaControlActivity : AppCompatActivity() {
         val btnCliente: Button = findViewById(R.id.btnIngresarModoCliente)
 
         btnIniciar.setOnClickListener(){
-            Toast.makeText(this, "Inventario", Toast.LENGTH_SHORT).show()
             val intent = Intent(this, InventarioActivity::class.java)
             startActivity(intent)
         }
 
         btnIniciarCategorias.setOnClickListener(){
-            Toast.makeText(this, "Categorías", Toast.LENGTH_SHORT).show()
             val intent = Intent(this, AdministrarCategoriasActivity::class.java)
             startActivity(intent)
         }
 
         btnIniciarPedidos.setOnClickListener(){
-            Toast.makeText(this, "Pedidos", Toast.LENGTH_SHORT).show()
             val intent = Intent(this, PedidosActivity::class.java)
             startActivity(intent)
         }

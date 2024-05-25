@@ -5,13 +5,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
-import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import sv.edu.ues.proyectopdm2024gt3grupo1.data.DataHelper
+import java.text.NumberFormat
+import java.util.Locale
 
 
 class HomeFragment : Fragment() {
@@ -56,7 +54,7 @@ class HomeFragment : Fragment() {
                 //Accede a los atributos o metodos de cada objeto productos
                 imagenRecuperado.add(prod.imagen1)
                 nombreRecuperado.add(prod.nombre)
-                precioRecuperado.add("$ "+ prod.precioVenta.toString())
+                precioRecuperado.add(NumberFormat.getCurrencyInstance(Locale.US).format(prod.precioVenta))
             }
 
 

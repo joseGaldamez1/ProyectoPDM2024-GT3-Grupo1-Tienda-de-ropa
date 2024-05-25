@@ -1,7 +1,5 @@
 package sv.edu.ues.proyectopdm2024gt3grupo1
 
-import android.content.Intent
-import android.database.sqlite.SQLiteDatabase
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
@@ -11,12 +9,9 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
-import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
-import com.bumptech.glide.Glide
-import org.w3c.dom.NamedNodeMap
 import sv.edu.ues.proyectopdm2024gt3grupo1.data.DataHelper
 
 class RegistrarseActivity : AppCompatActivity() {

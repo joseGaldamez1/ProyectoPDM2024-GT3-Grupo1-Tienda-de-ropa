@@ -1,11 +1,13 @@
 package sv.edu.ues.proyectopdm2024gt3grupo1
 
-import android.annotation.SuppressLint
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.Toast
+import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -26,14 +28,29 @@ class PedidosActivity : AppCompatActivity() {
         numeroRecuperado = ArrayList()
         clienteRecuperado = ArrayList()
 
-
         LlenarPedidos()
+
+        //toolbar
+        val toolbar: Toolbar = findViewById(R.id.toolbarPedidos)
+        setSupportActionBar(toolbar)
+        getSupportActionBar()?.setDisplayHomeAsUpEnabled(true)
+        getSupportActionBar()?.setDisplayShowHomeEnabled(true)
+    }
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId){
+            android.R.id.home->finish()
+        }
+        return super.onOptionsItemSelected(item)
     }
 
 
-    private fun LlenarPedidos() {
-        val listaProductos = dbHelper.VerPedidos(1)
 
+    private fun LlenarPedidos() {
+        val listaProductos = dbHelper.VerPedidos()
         val pedidosMap = HashMap<String, MutableList<Pedidos>>()
 
         for (prod in listaProductos) {
@@ -49,7 +66,7 @@ class PedidosActivity : AppCompatActivity() {
 
         for ((numeroPedido, productos) in pedidosMap) {
             numerosRecuperado.add(numeroPedido)
-            clientesRecuperados.add(productos.first().idUsuario.toString())
+            clientesRecuperados.add(productos.first().idUsuario.toString() +" "+ productos.first().apellidos)
             estadoRecuperado.add(productos.first().estado)
         }
 
@@ -57,46 +74,6 @@ class PedidosActivity : AppCompatActivity() {
         val adapter = CustomerAdapterPedidos(numerosRecuperado, clientesRecuperados, estadoRecuperado )
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = adapter
-        LlenarDatosEnVista()
+
     }
-
-
-    private fun LlenarDatosEnVista() {
-        val listaProductos = dbHelper.VerPedidos(1)
-
-        val productosPorPedidoMap = HashMap<String, MutableList<Pedidos>>()
-        for (prod in listaProductos) {
-            val productosPedido = productosPorPedidoMap.getOrPut(prod.numeroPedido.toString()) { mutableListOf() }
-            productosPedido.add(prod)
-           // Log.i("EJEMPLO", prod.toString())
-
-        }
-
-        val nombresRecuperados = ArrayList<String>()
-        val cantidadesRecuperadas = ArrayList<Int>()
-        val preciosVentaRecuperados = ArrayList<Double>()
-        val imagenesRecuperadas = ArrayList<String>()
-
-        for ((_, productos) in productosPorPedidoMap) {
-            for (producto in productos) {
-                nombresRecuperados.add(producto.nombreProd)
-                cantidadesRecuperadas.add(producto.cantidad)
-                preciosVentaRecuperados.add(producto.precioVenta)
-                imagenesRecuperadas.add(producto.imagen)
-            }
-        }
-
-        if (nombresRecuperados.isEmpty()) {
-            Toast.makeText(this, "La lista está vacía", Toast.LENGTH_SHORT).show()
-        } else {
-            val inflater = LayoutInflater.from(this)
-            val view = inflater.inflate(R.layout.activity_detalle_pedidos, null)
-            var recyclerView: RecyclerView = view.findViewById(R.id.RecycleVerProductos)
-            val adapter = CustomerAdapterProductoPedido(nombresRecuperados, cantidadesRecuperadas, preciosVentaRecuperados, imagenesRecuperadas)
-            recyclerView.layoutManager = GridLayoutManager(this,2)
-            recyclerView.adapter = adapter
-            adapter.notifyDataSetChanged()
-        }
-    }
-
 }

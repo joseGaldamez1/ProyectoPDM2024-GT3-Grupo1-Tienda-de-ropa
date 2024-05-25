@@ -1,10 +1,14 @@
 package sv.edu.ues.proyectopdm2024gt3grupo1
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 
 class CustomerAdapterPedidos(Pedido:ArrayList<String>, idCliente:ArrayList<String>, estado:ArrayList<String>): RecyclerView.Adapter<CustomerAdapterPedidos.ViewHolder>()
@@ -23,6 +27,20 @@ class CustomerAdapterPedidos(Pedido:ArrayList<String>, idCliente:ArrayList<Strin
         var itemNumero: TextView = itemView.findViewById(R.id.txtNumeroPedido)
         var itemCliente: TextView = itemView.findViewById(R.id.txtUsuarioPedido)
         var itemEstado: TextView = itemView.findViewById(R.id.txtEstado)
+        //prueba de accion en cardView
+        val  botonVerDetalles: Button = itemView.findViewById(R.id.btnVerDetalle)
+        init {
+
+            botonVerDetalles.setOnClickListener(){
+                val intent = Intent(itemView.context, DatosPedidoActivity::class.java).apply {
+                    putExtra("numeroPedido", itemNumero.text.toString())
+                }
+                itemView.context.startActivity(intent)
+                 }
+
+
+
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomerAdapterPedidos.ViewHolder {

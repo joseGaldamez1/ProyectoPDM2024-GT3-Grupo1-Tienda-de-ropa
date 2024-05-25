@@ -1,18 +1,15 @@
 package sv.edu.ues.proyectopdm2024gt3grupo1
 
-import android.content.Intent
-import android.util.Log
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.ImageView
-import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import org.w3c.dom.Text
 import sv.edu.ues.proyectopdm2024gt3grupo1.data.DataHelper
 
 class CustomerAdapterCarrito(
@@ -49,9 +46,9 @@ class CustomerAdapterCarrito(
             eliminar.setOnClickListener() {
                 val dbHelper = DataHelper(itemView.context)
                 val idProd = dbHelper.ConsultarIdProducto(itemNombre.text.toString())
-                val usua = 1
+                val usuar = dbHelper.obtenerUsuario(itemView.context)
                 val estado = "Carrito"
-                val idRes = dbHelper.EliminarCarrito(idProd ,usua, estado)
+                val idRes = dbHelper.EliminarCarrito(idProd ,usuar.toString().toInt(), estado)
                 if (idRes == 0) {
                     Toast.makeText(itemView.context, "No se pudo eliminar", Toast.LENGTH_SHORT).show()
                 } else {
@@ -65,7 +62,6 @@ class CustomerAdapterCarrito(
             }
         }
     }
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomerAdapterCarrito.ViewHolder {
         val v = LayoutInflater.from(parent.context).inflate(R.layout.detalle_item_carrito, parent, false)
         return CustomerAdapterCarrito.ViewHolder(v)
@@ -89,3 +85,4 @@ class CustomerAdapterCarrito(
     }
 
 }
+
