@@ -68,11 +68,14 @@ class CarritoFragment : Fragment() {
             }
 
             val resultado = dbHelper.ActualizarPedido(numeroPedido,"Pendiente", usuario.toString().toInt())
-            if(resultado > 1){
+            if(resultado >= 1){
                 Toast.makeText(requireContext(), "Pedido enviado con exito", Toast.LENGTH_SHORT).show()
                 LlenarCarrito()
+                totalPagar = view.findViewById(R.id.txtTotalPagar)
+                totalPagar.setText("$0.00")
+
             }else{
-                Toast.makeText(requireContext(), "Lo siento, tenemos un problema con su pedido", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Agregue productos al carrito", Toast.LENGTH_SHORT).show()
             }
 
         }

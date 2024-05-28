@@ -87,7 +87,10 @@ class InsertarProductoActivity : AppCompatActivity() {
                 GuardarEnBD()
 
             }
-            android.R.id.home->finish()
+            android.R.id.home->{
+                val intent = Intent(this, InventarioActivity::class.java)
+                startActivity(intent)}
+        //finish()
         }
         return super.onOptionsItemSelected(item)
     }
@@ -155,15 +158,15 @@ class InsertarProductoActivity : AppCompatActivity() {
 
 
     //FUNCION PARA LLENAR EL SPINNER CON LAS CATEGORIAS
-    private fun llenarSpinner(){
+    private fun llenarSpinner() {
         val nombreCategoria: ArrayList<Categorias> = dbHelper.verCategorias()
-
         val nombre: ArrayList<String> = ArrayList()
-        for(categ in nombreCategoria){
-            nombre.add(categ.nombre)
-        }
-        val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, nombreCategoria)
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        SpinerCat.adapter = adapter
+            for (categ in nombreCategoria) {
+                nombre.add(categ.nombre)
+            }
+            val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, nombreCategoria)
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            SpinerCat.adapter = adapter
+
     }
 }

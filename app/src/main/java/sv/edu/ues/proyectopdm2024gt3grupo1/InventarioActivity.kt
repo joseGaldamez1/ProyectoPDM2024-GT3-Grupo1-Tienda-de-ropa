@@ -67,7 +67,10 @@ class InventarioActivity : AppCompatActivity() {
                 val intent = Intent(this, ModificarProductoActivity::class.java)
                 startActivity(intent)
             }
-            android.R.id.home->finish()
+            android.R.id.home->{
+                val intent = Intent(this, pruebaControlActivity::class.java)
+                startActivity(intent)}
+            //finish()
         }
         return super.onOptionsItemSelected(item)
     }

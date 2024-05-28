@@ -60,8 +60,15 @@ class DetalleProductoActivity : AppCompatActivity() {
 
         //Agregar a la bolsa
         val btnCarr: Button = findViewById(R.id.btnAgregarBolsa)
+
+        val rol = obtenerUsuario(this).toString()
+        val prueba = dbHelper.ConsultarUsuario(rol)
+        val roll = prueba[0].rol
+        if(roll=="Administrador"){
+         //   btnCarr.isEnabled = false
+        }
         btnCarr.setOnClickListener(){
-         GuardarCarrito()
+                GuardarCarrito()
         }
 
       val spinerCarrito: Spinner = findViewById(R.id.spinnerCarrito)
@@ -159,7 +166,7 @@ class DetalleProductoActivity : AppCompatActivity() {
                 Toast.makeText(this, "No hay suficientes existencias", Toast.LENGTH_SHORT).show()
             } else {
                 val usuario = obtenerUsuario(this)
-                val idResultado = dbHelper.AddCarrito(usuario.toString().toInt(), res.toInt(), Produ, txtCantidad.text.toString().toInt())
+                    dbHelper.AddCarrito(usuario.toString().toInt(), res.toInt(), Produ, txtCantidad.text.toString().toInt())
                     Toast.makeText(this, "Agregado al carrito!!", Toast.LENGTH_SHORT).show()
                     txtCantidad.setText("")
                 }

@@ -11,6 +11,9 @@ import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.view.isVisible
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import sv.edu.ues.proyectopdm2024gt3grupo1.data.DataHelper
 
 
@@ -22,6 +25,7 @@ class PerfilFragment : Fragment() {
     private lateinit var  telefono: TextView
     private lateinit var  direccion: TextView
     private lateinit var  nombreUsuario: TextView
+    private lateinit var recyclerView: RecyclerView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,11 +39,22 @@ class PerfilFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         dbHelper = DataHelper(requireContext())
-        nombre = view.findViewById(R.id.txtNombrePerfil)
+        recyclerView = view.findViewById(R.id.RecycleMisPedidos)
+        LlenarPedidos()
+        val cerrar: Button = view.findViewById(R.id.btnCerrarSesion)
+        cerrar.setOnClickListener(){
+            dbHelper.EliminarSesion("Activa")
+            val intent = Intent(requireContext(), MainActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+            startActivity(intent)
+        }
+     /*   nombre = view.findViewById(R.id.txtNombrePerfil)
         telefono = view.findViewById(R.id.txtTelefonoPerfil)
         direccion = view.findViewById(R.id.txtDireccionPerfil)
         nombreUsuario = view.findViewById(R.id.txtUsuarioPerfil)
         CargarPerfil()
+        recyclerView = view.findViewById(R.id.RecycleMisPedidos)
+        LlenarPedidos()
 
         val cerrar: Button = view.findViewById(R.id.btnCerrarSesion)
         cerrar.setOnClickListener(){
@@ -47,12 +62,10 @@ class PerfilFragment : Fragment() {
             val intent = Intent(requireContext(), MainActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
             startActivity(intent)
-
-
-        }
+        }*/
     }
 
-    private fun CargarPerfil() {
+  /*  private fun CargarPerfil() {
 
         if(nombre.equals("")){
             Toast.makeText(null, "Registrese o inicie sesion", Toast.LENGTH_SHORT).show()
@@ -68,12 +81,41 @@ class PerfilFragment : Fragment() {
             nombreUsuario.setText(datos[0].usuario)
 
         }
-    }
+    }*/
 
     // Método para obtener el usuario de SharedPreferences
     fun obtenerUsuario(context: Context): String? {
         val nomUser = context.getSharedPreferences("MyAppPrefs", Context.MODE_PRIVATE)
         return nomUser.getString("USERNAME_KEY", null)
+    }
+
+    private fun LlenarPedidos() {
+        val usuario = obtenerUsuario(requireContext())
+        val listaProductos = dbHelper.VerPedidosPorUsuario(usuario.toString().toInt())
+        val pedidosMap = HashMap<String, MutableList<Pedidos>>()
+
+        for (prod in listaProductos) {
+            val productosPedido = pedidosMap.getOrPut(prod.numeroPedido.toString()) { mutableListOf() }
+            productosPedido.add(prod)
+        }
+
+
+        val numerosRecuperado = ArrayList<String>()
+        val clientesRecuperados = ArrayList<String>()
+        val estadoRecuperado = ArrayList<String>()
+
+
+        for ((numeroPedido, productos) in pedidosMap) {
+            numerosRecuperado.add(numeroPedido)
+            clientesRecuperados.add(productos.first().idUsuario.toString() +" "+ productos.first().apellidos)
+            estadoRecuperado.add(productos.first().estado)
+        }
+
+
+        val adapter = CustomerAdapterPedidos(numerosRecuperado, clientesRecuperados, estadoRecuperado )
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        recyclerView.adapter = adapter
+
     }
 
 }

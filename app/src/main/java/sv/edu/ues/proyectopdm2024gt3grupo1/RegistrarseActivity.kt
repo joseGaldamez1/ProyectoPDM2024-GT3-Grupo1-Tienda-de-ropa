@@ -44,7 +44,6 @@ class RegistrarseActivity : AppCompatActivity() {
             llenarSpinnerDepartamentos()
 
         //Toolbar
-        //toolbar
         val toolbar: Toolbar = findViewById(R.id.toolbarRegistrarse)
         setSupportActionBar(toolbar)
         getSupportActionBar()?.setDisplayHomeAsUpEnabled(true)

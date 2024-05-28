@@ -62,5 +62,15 @@ data class PedidoDetalle(
     val precio: Double,
     val imagen: String,
     val idCliente: String,
-    val talla: String
+    val talla: String,
+    val estado: String,
+    val rol: String
+)
+
+data class Reporte(
+    val nombre: String,
+    val imagen: String,
+    val cantidad: Int,
+    val precioCompra: Double,
+    val precioVenta: Double
 )

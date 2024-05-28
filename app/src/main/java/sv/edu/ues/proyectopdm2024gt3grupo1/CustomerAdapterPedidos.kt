@@ -1,6 +1,7 @@
 package sv.edu.ues.proyectopdm2024gt3grupo1
 
 import android.content.Intent
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -37,9 +38,15 @@ class CustomerAdapterPedidos(Pedido:ArrayList<String>, idCliente:ArrayList<Strin
                 }
                 itemView.context.startActivity(intent)
                  }
-
-
-
+        }
+        // Método para vincular datos con el ViewHolder
+        fun bind(estado: String) {
+            itemEstado.text = estado
+            if (itemEstado.text.toString() == "Finalizado") {
+                itemEstado.setTextColor(Color.GREEN)
+            } else {
+                itemEstado.setTextColor(Color.RED)
+            }
         }
     }
 
@@ -51,7 +58,8 @@ class CustomerAdapterPedidos(Pedido:ArrayList<String>, idCliente:ArrayList<Strin
     override fun onBindViewHolder(holder: CustomerAdapterPedidos.ViewHolder, position: Int) {
         holder.itemNumero.text=NumeroRecuperado[position]
         holder.itemCliente.text=ClienteRecuperado[position]
-        holder.itemEstado.text = EstadoRecuperado[position]
+        val est = EstadoRecuperado[position]
+        holder.bind(est)
     }
 
     override fun getItemCount(): Int {

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginBottom="5dp"
     tools:context=".DetalleProductoActivity">
 
     <androidx.appcompat.widget.Toolbar
@@ -81,7 +82,7 @@
         app:layout_constraintHorizontal_bias="0.03"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtDetalleNombre"
-        app:layout_constraintVertical_bias="0.285" />
+        app:layout_constraintVertical_bias="0.238" />
 
     <TextView
         android:id="@+id/txtDetalleDescripcionHome"
@@ -101,14 +102,16 @@
         android:layout_width="198dp"
         android:layout_height="44dp"
         android:layout_marginTop="4dp"
-        android:background="@android:color/black"
-        android:text="AÑADIR A LA BOLSA"
+        android:backgroundTint="@color/rosa"
+        android:fontFamily="sans-serif-black"
+        android:text="AÑADIR AL CARRITO"
+        android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtDetalleDescripcionHome"
-        app:layout_constraintVertical_bias="0.25" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/textView10"
@@ -119,10 +122,10 @@
         android:textColorHint="#000000"
         app:layout_constraintBottom_toTopOf="@+id/txtDetalleDescripcionHome"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.051"
+        app:layout_constraintHorizontal_bias="0.052"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtDetalleNombre"
-        app:layout_constraintVertical_bias="0.324" />
+        app:layout_constraintVertical_bias="0.222" />
 
     <Spinner
         android:id="@+id/spinnerCarrito"
@@ -131,10 +134,11 @@
         android:entries="@array/Tallas"
         app:layout_constraintBottom_toTopOf="@+id/txtDetalleDescripcionHome"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.05"
+        app:layout_constraintHorizontal_bias="0.04"
         app:layout_constraintStart_toEndOf="@+id/textView10"
         app:layout_constraintTop_toBottomOf="@+id/txtDetalleNombre"
-        app:layout_constraintVertical_bias="0.303" />
+        app:layout_constraintVertical_bias="0.075" />
+
 
     <TextView
         android:id="@+id/textView11"
@@ -149,7 +153,7 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/spinnerCarrito"
         app:layout_constraintTop_toBottomOf="@+id/txtDetalleNombre"
-        app:layout_constraintVertical_bias="0.358" />
+        app:layout_constraintVertical_bias="0.21" />
 
     <EditText
         android:id="@+id/txtCantidadCarrito"
@@ -159,17 +163,16 @@
         android:inputType="number"
         app:layout_constraintBottom_toTopOf="@+id/txtDetalleDescripcionHome"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.547"
+        app:layout_constraintHorizontal_bias="0.655"
         app:layout_constraintStart_toEndOf="@+id/textView11"
         app:layout_constraintTop_toBottomOf="@+id/txtDetalleNombre"
-        app:layout_constraintVertical_bias="0.369" />
-
+        app:layout_constraintVertical_bias="0.09" />
 
     <TextView
         android:id="@+id/txtDisp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Exixtencias:"
+        android:text="Existencias:"
         app:layout_constraintBottom_toTopOf="@+id/txtDetalleNombre"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.418"

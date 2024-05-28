@@ -1,6 +1,7 @@
 package sv.edu.ues.proyectopdm2024gt3grupo1
 
 import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -16,17 +17,12 @@ import sv.edu.ues.proyectopdm2024gt3grupo1.data.DataHelper
 class PedidosActivity : AppCompatActivity() {
 
     private lateinit var dbHelper: DataHelper
-
-    private lateinit var numeroRecuperado: ArrayList<String>
-    private lateinit var clienteRecuperado: ArrayList<String>
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pedidos)
 
         dbHelper = DataHelper(this)
-        numeroRecuperado = ArrayList()
-        clienteRecuperado = ArrayList()
+
 
         LlenarPedidos()
 
@@ -42,8 +38,12 @@ class PedidosActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId){
-            android.R.id.home->finish()
-        }
+            android.R.id.home-> {
+                val intent = Intent(this, pruebaControlActivity::class.java)
+                startActivity(intent)}
+                //finish()
+            }
+
         return super.onOptionsItemSelected(item)
     }
 

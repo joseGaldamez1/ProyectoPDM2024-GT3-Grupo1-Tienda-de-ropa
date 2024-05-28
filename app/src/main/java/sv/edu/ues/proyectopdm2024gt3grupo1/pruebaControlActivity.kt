@@ -38,8 +38,10 @@ class pruebaControlActivity : AppCompatActivity() {
         }
 
         btnIniciarReportes.setOnClickListener(){
-            Toast.makeText(this, "Reportes", Toast.LENGTH_SHORT).show()
+            val intent = Intent(this, ReporteActivity::class.java)
+            startActivity(intent)
         }
+
 
         btnCliente.setOnClickListener(){
             setContentView(R.layout.activity_main)

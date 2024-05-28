@@ -1,11 +1,13 @@
 package sv.edu.ues.proyectopdm2024gt3grupo1
 
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
@@ -75,13 +77,31 @@ class DatosPedidoActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            android.R.id.home -> finish()
+            android.R.id.home -> {//finish()
+                val rol = obtenerUsuario(this).toString()
+                val prueba = dbHelper.ConsultarUsuario(rol)
+                val roll = prueba[0].rol
+                if(roll=="Usuario"){
+                    finish()
+                }else{
+                    finish()
+                    val intent = Intent(this, PedidosActivity::class.java)
+                    startActivity(intent)
+                }
+            }
         }
         return super.onOptionsItemSelected(item)
     }
 
     private fun LlenarDatosEnVista() {
+        NombreRecuperado.clear()
+        CantidadRecuperado.clear()
+        PrecioVentaRecuperado.clear()
+        ImagenRecuperado.clear()
+        TallaRecuperado.clear()
         val ListaProductos = dbHelper.verDetallePedido(nomProducto)
+        var estado: String
+        var rol: String
 
         for (prod in ListaProductos) {
             //Accede a los atributos o metodos de cada objeto productos
@@ -91,6 +111,21 @@ class DatosPedidoActivity : AppCompatActivity() {
             ImagenRecuperado.add(prod.imagen)
             TallaRecuperado.add(prod.talla)
             total += prod.cantidad * prod.precio
+
+            estado=prod.estado
+            if(estado=="Finalizado"){
+                val btnFin: Button = findViewById(R.id.btnFinalizarPedido)
+                btnFin.visibility = View.GONE
+            }
+
+            //rol=prod.rol
+            rol = obtenerUsuario(this).toString()
+            val prueba = dbHelper.ConsultarUsuario(rol)
+            val roll = prueba[0].rol
+            if(roll=="Usuario"){
+                val btnFin: Button = findViewById(R.id.btnFinalizarPedido)
+                btnFin.visibility = View.GONE
+            }
         }
 
         var recyclerView: RecyclerView = findViewById(R.id.recycleDetallePedido)
@@ -103,12 +138,10 @@ class DatosPedidoActivity : AppCompatActivity() {
         )
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = adapter
-
-        //setea el total
-        //totalPagar.setText(total.toString())
-        //Toast.makeText(this, "Total: $total", Toast.LENGTH_SHORT).show()
-
-
+    }
+    fun obtenerUsuario(context: Context): String? {
+        val nomUser = context.getSharedPreferences("MyAppPrefs", Context.MODE_PRIVATE)
+        return nomUser.getString("USERNAME_KEY", null)
     }
 
     private fun CargarPerfil() {
@@ -131,10 +164,11 @@ class DatosPedidoActivity : AppCompatActivity() {
         val id = dbHelper.verDetallePedido(nomProducto)
         val idClien = id[0].idCliente
         val resultado = dbHelper.FinalizarPedido("Finalizado", idClien.toInt(), nomProducto.toInt())
-        if(resultado == 1){
+        if(resultado >= 1){
             Toast.makeText(this, "Pedido Finalizado", Toast.LENGTH_SHORT).show()
-            val intent = Intent(this, PedidosActivity::class.java)
-            startActivity(intent)
+            LlenarDatosEnVista()
+        /*    val intent = Intent(this, PedidosActivity::class.java)
+            startActivity(intent)*/
         }else{
             Toast.makeText(this, "Ocurrió un error, no puede finalizar el pedido", Toast.LENGTH_SHORT).show()
         }

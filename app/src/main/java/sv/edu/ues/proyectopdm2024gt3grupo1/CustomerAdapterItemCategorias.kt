@@ -31,8 +31,7 @@ class CustomerAdapterItemCategorias(
 
         init {
             imagen.setOnClickListener() {
-                Toast.makeText(itemView.context,"Categoría: " + itemCat.text.toString(), Toast.LENGTH_SHORT).show()
-                val intent = Intent(itemView.context, ProductosPorCategoriaActivity::class.java).apply {
+              val intent = Intent(itemView.context, ProductosPorCategoriaActivity::class.java).apply {
                     putExtra("nombreCategoria", itemCat.text.toString())
                 }
                 itemView.context.startActivity(intent)

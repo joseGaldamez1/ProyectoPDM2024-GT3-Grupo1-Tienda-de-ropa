@@ -70,7 +70,6 @@ class CustomerAdapterCarrito(
     override fun onBindViewHolder(holder: CustomerAdapterCarrito.ViewHolder, position: Int) {
           holder.itemNombre.text=NombreRecuperado[position]
         val imageUrl = ImagenRecuperado[position]
-
         Glide.with(holder.itemView.context)
             .load(imageUrl)
             .error("https://www.shutterstock.com/image-vector/default-ui-image-placeholder-wireframes-600nw-1037719192.jpg")

@@ -15,6 +15,7 @@ import sv.edu.ues.proyectopdm2024gt3grupo1.PedidoDetalle
 import sv.edu.ues.proyectopdm2024gt3grupo1.Pedidos
 import sv.edu.ues.proyectopdm2024gt3grupo1.Perfil
 import sv.edu.ues.proyectopdm2024gt3grupo1.Productos
+import sv.edu.ues.proyectopdm2024gt3grupo1.Reporte
 
 class DataHelper(context: Context):
 SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
@@ -999,7 +1000,9 @@ SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
         "c.$COLUMN_CARRITO_ESTADO " +
         " FROM $TABLE_CARRITO c JOIN $TABLE_PRODUCTOS p ON c.$COLUMN_CARRITO_ID_PRODUCTO = p.$COLUMN_PRODUCTOS_ID " +
         "JOIN $TABLE_USUARIO u ON u.$COLUMN_USUARIO_ID = c.$COLUMN_CARRITO_ID_USUARIO " +
-         "WHERE $COLUMN_CARRITO_ESTADO='Pendiente'")
+         "WHERE $COLUMN_CARRITO_ESTADO='Pendiente' OR $COLUMN_CARRITO_ESTADO = 'Finalizado' " +
+         "ORDER BY $COLUMN_CARRITO_ESTADO DESC")
+
 
 
         val db = readableDatabase
@@ -1255,9 +1258,11 @@ SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
     }
 
     fun verDetallePedido(numero: String): ArrayList<PedidoDetalle> {
-        val query: String = ("SELECT p.$COLUMN_PRODUCTOS_NOMBRE, c.$COLUMN_CARRITO_CANTIDAD, p.$COLUMN_PRODUCTOS_PRECIO_VENTA, p.$COLUMN_PRODUCTOS_IMAGEN1, c.$COLUMN_CARRITO_ID_USUARIO, c.$COLUMN_CARRITO_TALLA "+
-                "FROM $TABLE_PRODUCTOS p JOIN " +
-                "$TABLE_CARRITO c ON c.$COLUMN_CARRITO_ID_PRODUCTO = p.$COLUMN_PRODUCTOS_ID " +
+        val query: String = ("SELECT p.$COLUMN_PRODUCTOS_NOMBRE, c.$COLUMN_CARRITO_CANTIDAD, p.$COLUMN_PRODUCTOS_PRECIO_VENTA, " +
+                "p.$COLUMN_PRODUCTOS_IMAGEN1, c.$COLUMN_CARRITO_ID_USUARIO, c.$COLUMN_CARRITO_TALLA, c.$COLUMN_CARRITO_ESTADO, u.$COLUMN_USUARIO_ROL "+
+                "FROM $TABLE_PRODUCTOS p " +
+                "JOIN $TABLE_CARRITO c ON c.$COLUMN_CARRITO_ID_PRODUCTO = p.$COLUMN_PRODUCTOS_ID " +
+                "JOIN $TABLE_USUARIO u ON c.$COLUMN_CARRITO_ID_USUARIO = u.$COLUMN_USUARIO_ID " +
                 " WHERE c.$COLUMN_CARRITO_NUMERO_PEDIDO = '$numero'")
         val db = readableDatabase
         val cursor: Cursor
@@ -1270,7 +1275,9 @@ SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
             val imagen = cursor.getString(3)
             val idCliente = cursor.getString(4)
             val talla = cursor.getString(5)
-            val pedido = PedidoDetalle(nombre, cantidad, precio, imagen, idCliente, talla)
+            val estado = cursor.getString(6)
+            val rol = cursor.getString(7)
+            val pedido = PedidoDetalle(nombre, cantidad, precio, imagen, idCliente, talla, estado, rol)
             DatosPedido.add(pedido)
         }
         cursor.close()
@@ -1297,6 +1304,87 @@ SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
             db.close()
 
         return idResultado
+    }
+
+    fun VerPedidosPorUsuario(usuario: Int): ArrayList<Pedidos>{
+        val query: String = ("SELECT " +
+                "c.$COLUMN_CARRITO_NUMERO_PEDIDO, " +
+                "u.$COLUMN_USUARIO_NOMBRES, " +
+                "u.$COLUMN_USUARIO_APELLIDOS, " +
+                "p.$COLUMN_PRODUCTOS_ID, " +
+                "p.$COLUMN_PRODUCTOS_NOMBRE, " +
+                "c.$COLUMN_CARRITO_TALLA, " +
+                "c.$COLUMN_CARRITO_CANTIDAD, "+
+                "p.$COLUMN_PRODUCTOS_PRECIO_VENTA, " +
+                "p.$COLUMN_PRODUCTOS_IMAGEN1, " +
+                "c.$COLUMN_CARRITO_ESTADO " +
+                " FROM $TABLE_CARRITO c JOIN $TABLE_PRODUCTOS p ON c.$COLUMN_CARRITO_ID_PRODUCTO = p.$COLUMN_PRODUCTOS_ID " +
+                "JOIN $TABLE_USUARIO u ON u.$COLUMN_USUARIO_ID = c.$COLUMN_CARRITO_ID_USUARIO " +
+                "WHERE (c.$COLUMN_CARRITO_ESTADO='Pendiente' OR c.$COLUMN_CARRITO_ESTADO = 'Finalizado') " +
+                "AND u.$COLUMN_CARRITO_ID_USUARIO ='$usuario' " +
+                "ORDER BY c.$COLUMN_CARRITO_ID DESC")
+
+
+
+        val db = readableDatabase
+        val cursor: Cursor
+        val DatosProductos = ArrayList<Pedidos>()
+        cursor = db.rawQuery(query, null)
+        while (cursor.moveToNext()) {
+            val numeroPedido = cursor.getString(0).toInt()
+            val id_User = cursor.getString(1)
+            val apellidos = cursor.getString(2)
+            val idProd = cursor.getString(3).toInt()
+            val nombreProd = cursor.getString(4)
+            val talla = cursor.getString(5)
+            val cantidad = cursor.getString(6).toInt()
+            val precioventa = cursor.getString(7).toDouble()
+            val imagen = cursor.getString(8)
+            val estado = cursor.getString(9)
+
+            val pedido = Pedidos(
+                numeroPedido,
+                id_User,
+                apellidos,
+                idProd,
+                nombreProd,
+                talla,
+                cantidad,
+                precioventa,
+                imagen,
+                estado
+            )
+            DatosProductos.add(pedido)
+        }
+        cursor.close()
+        db.close()
+        return DatosProductos
+    }
+
+    fun verProductosMasVendidos(): ArrayList<Reporte> {
+        val query: String = ("SELECT p.$COLUMN_PRODUCTOS_NOMBRE, p.$COLUMN_PRODUCTOS_IMAGEN1, SUM(c.$COLUMN_CARRITO_CANTIDAD) AS Total, " +
+                "P.$COLUMN_PRODUCTOS_PRECIO_COMPRA, p.$COLUMN_PRODUCTOS_PRECIO_VENTA "+
+                "FROM $TABLE_PRODUCTOS p "+
+                "JOIN $TABLE_CARRITO c ON c.$COLUMN_CARRITO_ID_PRODUCTO = p.$COLUMN_PRODUCTOS_ID " +
+                "WHERE c.$COLUMN_CARRITO_ESTADO = 'Finalizado' " +
+                "GROUP BY p.$COLUMN_PRODUCTOS_NOMBRE " +
+                "ORDER BY Total DESC")
+        val db = readableDatabase
+        val cursor: Cursor
+        val DatosProductos = ArrayList<Reporte>()
+        cursor = db.rawQuery(query, null)
+        while (cursor.moveToNext()) {
+            val nombre = cursor.getString(0)
+            val imagen = cursor.getString(1)
+            val cantidad = cursor.getInt(2)
+            val costo = cursor.getDouble(3)
+            val venta = cursor.getDouble(4)
+            val prod = Reporte(nombre, imagen, cantidad, costo, venta)
+            DatosProductos.add(prod)
+        }
+        cursor.close()
+        db.close()
+        return DatosProductos
     }
 
 

@@ -11,8 +11,8 @@
 
     <TextView
         android:id="@+id/textView7"
-        android:layout_width="59dp"
-        android:layout_height="40dp"
+        android:layout_width="68dp"
+        android:layout_height="39dp"
         android:fontFamily="sans-serif-medium"
         android:text="@string/LogNombres"
         android:textAlignment="textStart"
@@ -158,8 +158,8 @@
 
     <TextView
         android:id="@+id/textView26"
-        android:layout_width="94dp"
-        android:layout_height="41dp"
+        android:layout_width="99dp"
+        android:layout_height="42dp"
         android:fontFamily="sans-serif-medium"
         android:text="@string/LogDepartamento"
         android:textAlignment="textStart"
@@ -240,8 +240,8 @@
 
     <Spinner
         android:id="@+id/spinnerDistrito"
-        android:layout_width="249dp"
-        android:layout_height="40dp"
+        android:layout_width="248dp"
+        android:layout_height="50dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.196"

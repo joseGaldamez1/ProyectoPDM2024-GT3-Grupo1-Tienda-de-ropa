@@ -11,12 +11,10 @@
         android:layout_width="411dp"
         android:layout_height="55dp"
         android:background="@color/rosa"
-        app:layout_constraintBottom_toTopOf="@+id/image2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.025" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/txtModId"
@@ -219,40 +217,13 @@
 
 
     <ImageView
-        android:id="@+id/image2"
-        android:layout_width="85dp"
-        android:layout_height="111dp"
-        app:layout_constraintBottom_toTopOf="@+id/txtModNombre"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.466"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.91"
-        app:srcCompat="@drawable/borde" />
-
-    <ImageView
         android:id="@+id/Modimage1"
-        android:layout_width="85dp"
-        android:layout_height="111dp"
-        app:layout_constraintBottom_toTopOf="@+id/txtModNombre"
-        app:layout_constraintEnd_toStartOf="@+id/Modimage3"
-        app:layout_constraintHorizontal_bias="0.214"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.91"
-        app:srcCompat="@drawable/borde" />
-
-    <ImageView
-        android:id="@+id/Modimage3"
-        android:layout_width="85dp"
-        android:layout_height="111dp"
-        android:layout_marginEnd="28dp"
+        android:layout_width="115dp"
+        android:layout_height="142dp"
         app:layout_constraintBottom_toTopOf="@+id/txtModNombre"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.409"
-        app:layout_constraintStart_toEndOf="@+id/image2"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.91"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtModId"
         app:srcCompat="@drawable/borde" />
 
     <Button
@@ -260,11 +231,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Buscar"
-        app:layout_constraintBottom_toTopOf="@+id/Modimage3"
+        app:layout_constraintBottom_toTopOf="@+id/txtModNombre"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.19"
+        app:layout_constraintHorizontal_bias="0.017"
         app:layout_constraintStart_toEndOf="@+id/txtModId"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.64" />
+        app:layout_constraintVertical_bias="0.342" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
