@@ -2,6 +2,7 @@ package sv.edu.ues.proyectopdm2024gt3grupo1
 
 
 import android.content.Context
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
@@ -15,7 +16,13 @@ import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
+import androidx.core.net.toUri
+import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
+import kotlinx.coroutines.launch
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 import sv.edu.ues.proyectopdm2024gt3grupo1.data.DataHelper
 import java.text.NumberFormat
 import java.util.Locale
@@ -115,17 +122,32 @@ class DetalleProductoActivity : AppCompatActivity() {
         val imagen: ImageView = findViewById(R.id.txtImagenDetalleHome)
 
         if(nombreProd.isEmpty()){
-            Toast.makeText(null, "El codigo esta vacío", Toast.LENGTH_SHORT).show()
-        }else{
-            val productoBuscado:ArrayList<Productos>
-            productoBuscado=dbHelper.ConsultarProductoNombre(nombreProd)
+            Toast.makeText(this, "El codigo esta vacío", Toast.LENGTH_SHORT).show()
+        }else {
+            val productoBuscado: ArrayList<Productos>
+            productoBuscado = dbHelper.ConsultarProductoNombre(nombreProd)
+            if (productoBuscado.isNotEmpty()) {
                 nombre.setText(productoBuscado[0].nombre)
                 precio.setText(NumberFormat.getCurrencyInstance(Locale.US).format(productoBuscado[0].precioVenta))
                 descripcion.setText(productoBuscado[0].descripcion)
                 Glide.with(this)
                     .load(productoBuscado[0].imagen1)
                     .into(imagen)
+            }else{
+                //Intentar cargar aqui la informacion del producto
+                Toast.makeText(this, "El producto no esta disponible", Toast.LENGTH_SHORT).show()
+                val btnCarr: Button = findViewById(R.id.btnAgregarBolsa)
+                btnCarr.isEnabled = false
+
+                Glide.with(this)
+                    .load("https://www.artenatur.com/wp-content/uploads/2017/02/proximamente.png")
+                    .into(imagen)
+                descripcion.setText("Este producto no está disponible por el momento")
+                descripcion.setTextColor(Color.RED)
+                precio.setText("$0.00")
+                nombre.setText("S/N")
             }
+        }
         }
 
     //funcion para agregar datos al carrito
@@ -190,7 +212,7 @@ class DetalleProductoActivity : AppCompatActivity() {
             tallaL = tallas[0].cantidadL.toString()
         } else {
             // Manejar el caso en que la lista esté vacía
-            Toast.makeText(this, "No se encontraron productos", Toast.LENGTH_SHORT).show()
+           // Toast.makeText(this, "No se encontraron productos", Toast.LENGTH_SHORT).show()
             return
         }
 

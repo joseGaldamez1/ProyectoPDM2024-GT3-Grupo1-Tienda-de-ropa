@@ -49,12 +49,26 @@ class CustomAdapterHome(
             }
 
             imagen.setOnClickListener(){
-                val intent = Intent(itemView.context, DetalleProductoActivity::class.java).apply {
-                    putExtra("nombreProducto", itemNombre.text.toString())
+                if (itemNombre.text.toString() == ""){
+                    Toast.makeText(itemView.context, "Es de api", Toast.LENGTH_SHORT).show()
+                }else {
+                    val intent = Intent(itemView.context, DetalleProductoActivity::class.java).apply {
+                            putExtra("nombreProducto", itemNombre.text.toString())
+                        }
+                    itemView.context.startActivity(intent)
                 }
-                itemView.context.startActivity(intent)
             }
-
+            /*prueba
+            itemView.setOnClickListener {
+                val position = adapterPosition
+                if (position != RecyclerView.NO_POSITION) {
+                    val producto = PostModel[position]
+                    if (!producto.esDeApi) {
+                        // Manejar clic solo si no es de la API
+                        Toast.makeText(itemView.context, "Producto: ${producto.nombre}", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }*/
         }
     }
 
